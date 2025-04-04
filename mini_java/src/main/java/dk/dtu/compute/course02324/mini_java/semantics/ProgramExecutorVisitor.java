@@ -157,16 +157,17 @@ public class ProgramExecutorVisitor extends ProgramVisitor {
 
     @Override
     public void visit(WhileLoop whileLoop) {
-        whileLoop.expression.accept(pv);
-
-//        while((int) values.get(whileLoop.expression) >= 0){
+        whileLoop.expression.accept(this);
+//
+//        if ((int) values.get(whileLoop.expression) >= 0) {
 //            whileLoop.statement.accept(this);
-//            whileLoop.expression.accept(this);
-//        };
+//        }
 
-        if ((int) values.get(whileLoop.expression) >= 0) {
+        while ((int) values.get(whileLoop.expression) >= 0) {
             whileLoop.statement.accept(this);
+            whileLoop.expression.accept(this);
         }
+
         /* TODO Assignment 6b: Here some code which actually executes the
                 while loop must be added. This code should get the current value
                 of the expression, and if that expression is greater or equal

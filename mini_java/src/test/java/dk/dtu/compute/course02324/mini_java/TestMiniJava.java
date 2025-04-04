@@ -355,7 +355,7 @@ public class TestMiniJava{
         Sequence printStatements = Sequence(
                 Declaration(INT,
                         Var("a"),
-                        OperatorExpression(MUL,
+                        OperatorExpression(MULT,
                                 Literal(5),
                                 Literal(3)
                         )
@@ -364,7 +364,7 @@ public class TestMiniJava{
 
                 Declaration(FLOAT,
                         Var("b"),
-                        OperatorExpression(MUL,
+                        OperatorExpression(MULT,
                                 Literal(5.0f),
                                 Literal(3.0f)
                         )
@@ -389,7 +389,7 @@ public class TestMiniJava{
                                                         Literal(-2)
                                                 )
                                         ),
-                                        OperatorExpression(MUL,
+                                        OperatorExpression(MULT,
                                                 Literal(4),
                                                 Literal(1)
                                         )
@@ -407,7 +407,7 @@ public class TestMiniJava{
                                                         Literal(-2.5f)
                                                 )
                                         ),
-                                        OperatorExpression(MUL,
+                                        OperatorExpression(MULT,
                                                 Literal(4.0f),
                                                 Literal(1.0f)
                                         )
