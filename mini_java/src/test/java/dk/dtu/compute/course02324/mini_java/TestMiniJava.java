@@ -343,4 +343,106 @@ public class TestMiniJava{
         assertEquals(0, variables.size(), "Some variables have not been evaluated");
     }
 
+    @Test
+    public void testPrintAndMoreOperators() {
+        int a = 5 * 3;
+        float b = 5.0f * 3.0f;
+        float c = 36.5f % 7.2f;
+
+        int d = - + -2 * 4;
+        float e = - + -2.5f * 4.0f;
+
+        Sequence printStatements = Sequence(
+                Declaration(INT,
+                        Var("a"),
+                        OperatorExpression(MUL,
+                                Literal(5),
+                                Literal(3)
+                        )
+                ),
+                PrintStatement("5 * 3: ", Var("a")),
+
+                Declaration(FLOAT,
+                        Var("b"),
+                        OperatorExpression(MUL,
+                                Literal(5.0f),
+                                Literal(3.0f)
+                        )
+                ),
+                PrintStatement("5.0f * 3.0f: ", Var("b")),
+
+                Declaration(FLOAT,
+                        Var("c"),
+                        OperatorExpression(MOD,
+                                Literal(36.5f),
+                                Literal(7.2f)
+                        )
+                ),
+                PrintStatement("36.5f % 7.2f: ", Var("c")),
+
+                Declaration(INT,
+                        Var("d"),
+                        OperatorExpression(MINUS2,
+                                OperatorExpression(PLUS2,
+                                        OperatorExpression(MINUS1,
+                                                OperatorExpression(PLUS1,
+                                                        Literal(-2)
+                                                )
+                                        ),
+                                        OperatorExpression(MUL,
+                                                Literal(4),
+                                                Literal(1)
+                                        )
+                                )
+                        )
+                ),
+                PrintStatement(" - + -2 * 4: ", Var("d")),
+
+                Declaration(FLOAT,
+                        Var("e"),
+                        OperatorExpression(MINUS2,
+                                OperatorExpression(PLUS2,
+                                        OperatorExpression(MINUS1,
+                                                OperatorExpression(PLUS1,
+                                                        Literal(-2.5f)
+                                                )
+                                        ),
+                                        OperatorExpression(MUL,
+                                                Literal(4.0f),
+                                                Literal(1.0f)
+                                        )
+                                )
+                        )
+                ),
+                PrintStatement(" - + -2.5f * 4.0f: ", Var("e"))
+        );
+
+        ptv.visit(printStatements);
+        if (!ptv.problems.isEmpty()) {
+            fail("The type visitor detected typing problems, which should not be there!");
+        }
+
+        pev.visit(printStatements);
+
+        Set<String> variables = new HashSet<>(List.of("a", "b", "c", "d", "e"));
+        for (Var var : ptv.variables) {
+            variables.remove(var.name);
+
+            if (var.name.equals("a")) {
+                assertEquals(a, pev.values.get(var), "Value of variable a should be " + a + ".");
+            } else if (var.name.equals("b")) {
+                assertEquals(b, pev.values.get(var), "Value of variable b should be " + b + ".");
+            } else if (var.name.equals("c")) {
+                assertEquals(c, pev.values.get(var), "Value of variable c should be " + c + ".");
+            } else if (var.name.equals("d")) {
+                assertEquals(d, pev.values.get(var), "Value of variable d should be " + d + ".");
+            } else if (var.name.equals("e")) {
+                assertEquals(e, pev.values.get(var), "Value of variable e should be " + e + ".");
+            } else {
+                fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
+            }
+        }
+        assertEquals(0, variables.size(), "Some variables have not been evaluated");
+    }
+
 }
