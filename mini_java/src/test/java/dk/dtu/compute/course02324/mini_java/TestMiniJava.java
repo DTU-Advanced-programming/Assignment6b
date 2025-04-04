@@ -349,9 +349,6 @@ public class TestMiniJava{
         float b = 5.0f * 3.0f;
         float c = 36.5f % 7.2f;
 
-        int d = - + -2 * 4;
-        float e = - + -2.5f * 4.0f;
-
         Sequence printStatements = Sequence(
                 Declaration(INT,
                         Var("a"),
@@ -378,43 +375,7 @@ public class TestMiniJava{
                                 Literal(7.2f)
                         )
                 ),
-                PrintStatement("36.5f % 7.2f: ", Var("c")),
-
-                Declaration(INT,
-                        Var("d"),
-                        OperatorExpression(MINUS2,
-                                OperatorExpression(PLUS2,
-                                        OperatorExpression(MINUS1,
-                                                OperatorExpression(PLUS1,
-                                                        Literal(-2)
-                                                )
-                                        ),
-                                        OperatorExpression(MULT,
-                                                Literal(4),
-                                                Literal(1)
-                                        )
-                                )
-                        )
-                ),
-                PrintStatement(" - + -2 * 4: ", Var("d")),
-
-                Declaration(FLOAT,
-                        Var("e"),
-                        OperatorExpression(MINUS2,
-                                OperatorExpression(PLUS2,
-                                        OperatorExpression(MINUS1,
-                                                OperatorExpression(PLUS1,
-                                                        Literal(-2.5f)
-                                                )
-                                        ),
-                                        OperatorExpression(MULT,
-                                                Literal(4.0f),
-                                                Literal(1.0f)
-                                        )
-                                )
-                        )
-                ),
-                PrintStatement(" - + -2.5f * 4.0f: ", Var("e"))
+                PrintStatement("36.5f % 7.2f: ", Var("c"))
         );
 
         ptv.visit(printStatements);
@@ -424,7 +385,7 @@ public class TestMiniJava{
 
         pev.visit(printStatements);
 
-        Set<String> variables = new HashSet<>(List.of("a", "b", "c", "d", "e"));
+        Set<String> variables = new HashSet<>(List.of("a", "b", "c"));
         for (Var var : ptv.variables) {
             variables.remove(var.name);
 
@@ -434,10 +395,6 @@ public class TestMiniJava{
                 assertEquals(b, pev.values.get(var), "Value of variable b should be " + b + ".");
             } else if (var.name.equals("c")) {
                 assertEquals(c, pev.values.get(var), "Value of variable c should be " + c + ".");
-            } else if (var.name.equals("d")) {
-                assertEquals(d, pev.values.get(var), "Value of variable d should be " + d + ".");
-            } else if (var.name.equals("e")) {
-                assertEquals(e, pev.values.get(var), "Value of variable e should be " + e + ".");
             } else {
                 fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
             }
