@@ -85,11 +85,19 @@ public class ProgramTypeVisitor extends ProgramVisitor {
         } else {
             problems.add("While loop expression is not a integer it is a "+typeMapping.get(whileLoop.expression).getName());
         }
+    }
 
-        /* TODO Assignment 6b: Here some code most be implemented for
-                checking that the expression is of type integer. If not,
-                the code must add a problem to the problem list.
-         */
+    @Override
+    public void visit(ConditionalStatement condition) {
+        condition.expression.accept(this);
+
+        if (Objects.equals(typeMapping.get(condition.expression).getName(), "Integer") || Objects.equals(typeMapping.get(condition.expression).getName(), "int")) {
+            //Adds the relevant typeMappings (to be used in executor)
+            condition.if_statement.accept(this);
+            condition.else_statement.accept(this);
+        } else {
+            problems.add("Conditional Statement expression is not a integer it is a "+typeMapping.get(condition.expression).getName());
+        }
 
     }
 

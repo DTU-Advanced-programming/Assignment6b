@@ -280,7 +280,38 @@ public class MiniJavaRun {
 
         printTypeEvaluate(statement5);
 
-        System.out.println("And now some syntactially wrong examples (crashing) when building statement!");
+        Statement ifStatement1 =  Sequence(
+                Declaration(INT, Var("i"), Literal(5)),
+                new ConditionalStatement(
+                        Var("i"),
+                        new Sequence (
+                            PrintStatement("in an if statement, i value is: ", Var("i"))
+                        ),
+                        new Sequence (
+                                PrintStatement("in an else statement, i value is: ", Var("i"))
+                        )
+                )
+        );
+
+        printTypeEvaluate(ifStatement1);
+
+        Statement elseStatement =  Sequence(
+                Declaration(INT, Var("i"), Literal(-2)),
+                new ConditionalStatement(
+                        Var("i"),
+                        new Sequence (
+                                PrintStatement("in an if statement, i value is: ", Var("i"))
+                        ),
+                        new Sequence (
+                                PrintStatement("in an else statement, i value is: ", Var("i"))
+                        )
+                )
+        );
+
+
+        printTypeEvaluate(elseStatement);
+
+        System.out.println("And now some syntactically wrong examples (crashing) when building statement!");
 
         Statement statement6 = new Sequence(
                 new Declaration(INT, new Var("i")),

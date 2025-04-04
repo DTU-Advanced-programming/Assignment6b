@@ -77,6 +77,22 @@ public class ProgramSerializerVisitor extends ProgramVisitor  {
     }
 
     @Override
+    public void visit(ConditionalStatement conditionalStatement) {
+        result.append("if ( ");
+        conditionalStatement.expression.accept(this);
+        result.append(" >= 0 ) {" + System.lineSeparator());
+        indentLevel++;
+        conditionalStatement.if_statement.accept(this);
+        indentLevel--;
+        result.append("else { " + System.lineSeparator());
+        indentLevel++;
+        conditionalStatement.if_statement.accept(this);
+        indentLevel--;
+        addIndentation();
+        result.append("}");
+    }
+
+    @Override
     public void visit(Assignment assignment) {
         result.append(assignment.variable.name  + " = ");
         assignment.expression.accept(this);
