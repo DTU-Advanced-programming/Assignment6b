@@ -145,6 +145,8 @@ public class ProgramExecutorVisitor extends ProgramVisitor {
     public void visit(PrintStatement printStatement) {
         printStatement.expression.accept(this);
 
+        System.out.println(printStatement.prefix+values.get(printStatement.expression));
+
         /* TODO Assignment 6a: Here some code which actually executes the
                 print operation must be added. It should actually print out the
                 prefix of the print statement and then the CURRENT value of the
@@ -155,8 +157,16 @@ public class ProgramExecutorVisitor extends ProgramVisitor {
 
     @Override
     public void visit(WhileLoop whileLoop) {
-        whileLoop.expression.accept(this);
+        whileLoop.expression.accept(pv);
 
+//        while((int) values.get(whileLoop.expression) >= 0){
+//            whileLoop.statement.accept(this);
+//            whileLoop.expression.accept(this);
+//        };
+
+        if ((int) values.get(whileLoop.expression) >= 0) {
+            whileLoop.statement.accept(this);
+        }
         /* TODO Assignment 6b: Here some code which actually executes the
                 while loop must be added. This code should get the current value
                 of the expression, and if that expression is greater or equal
