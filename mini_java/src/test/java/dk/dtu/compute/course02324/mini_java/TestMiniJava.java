@@ -387,4 +387,59 @@ public class TestMiniJava{
         assertEquals(0, variables.size(), "Some variables have not been evaluated");
     }
 
+    @Test
+    public void testPrintAndConditionalStatement() {
+        int a = 1;
+        int b = -1;
+        int c = 0;
+
+        Sequence printStatements = Sequence(
+                Declaration(INT,
+                        Var("a"),
+                        Literal(1)),
+                new ConditionalStatement(Literal(1),
+                                PrintStatement("This should print: ", Var("a")),
+                                PrintStatement("This should not print: ", Var("a"))
+                ),
+
+                Declaration(INT,
+                        Var("b"),
+                        Literal(-1)),
+                new ConditionalStatement(Var("b"),
+                        PrintStatement("This should not print: ", Var("b")),
+                        PrintStatement("This should print: ", Var("b"))
+                ),
+
+                Declaration(INT,
+                        Var("c"),
+                        Literal(0)),
+                new ConditionalStatement(Var("c"),
+                        PrintStatement("This should print: ", Var("c")),
+                        PrintStatement("This should not print: ", Var("c"))
+                )
+        );
+
+        ptv.visit(printStatements);
+        if (!ptv.problems.isEmpty()) {
+            fail("The type visitor detected typing problems, which should not be there!");
+        }
+
+        pev.visit(printStatements);
+
+        Set<String> variables = new HashSet<>(List.of("a", "b", "c"));
+        for (Var var : ptv.variables) {
+            variables.remove(var.name);
+
+            switch (var.name) {
+                case "a" -> assertEquals(a, pev.values.get(var), "Value of variable a should be " + a + ".");
+                case "b" -> assertEquals(b, pev.values.get(var), "Value of variable b should be " + b + ".");
+                case "c" -> assertEquals(c, pev.values.get(var), "Value of variable c should be " + c + ".");
+                default -> fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
+            }
+        }
+        assertEquals(0, variables.size(), "Some variables have not been evaluated");
+
+    }
+
+
 }
