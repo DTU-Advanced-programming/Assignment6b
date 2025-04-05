@@ -68,12 +68,10 @@ public class TestMiniJava{
         for (Var var: ptv.variables) {
             variables.remove(var.name);
 
-            if (var.name.equals("i")) {
-                assertEquals(i, pev.values.get(var), "Value of variable i should be " + i + ".");
-            } else if (var.name.equals("j")) {
-                assertEquals(j, pev.values.get(var), "Value of variable j should be " + j + ".");
-            } else {
-                fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
+            switch (var.name) {
+                case "i" -> assertEquals(i, pev.values.get(var), "Value of variable i should be " + i + ".");
+                case "j" -> assertEquals(j, pev.values.get(var), "Value of variable j should be " + j + ".");
+                default -> fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
             }
         }
         assertEquals(0, variables.size(), "Some variables have not been evaluated");
@@ -114,12 +112,10 @@ public class TestMiniJava{
         for (Var var: ptv.variables) {
             variables.remove(var.name);
 
-            if (var.name.equals("i")) {
-                assertEquals(i, pev.values.get(var), "Value of variable i should be " + i + ".");
-            } else if (var.name.equals("j")) {
-                assertEquals(j, pev.values.get(var), "Value of variable j should be " + j + ".");
-            } else {
-                fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
+            switch (var.name) {
+                case "i" -> assertEquals(i, pev.values.get(var), "Value of variable i should be " + i + ".");
+                case "j" -> assertEquals(j, pev.values.get(var), "Value of variable j should be " + j + ".");
+                default -> fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
             }
         }
         assertEquals(0, variables.size(), "Some variables have not been evaluated");
@@ -226,14 +222,11 @@ public class TestMiniJava{
         for (Var var: ptv.variables) {
             variables.remove(var.name);
 
-            if (var.name.equals("i")) {
-                assertEquals(i, pev.values.get(var), "Value of variable i should be " + i + ".");
-            } else if (var.name.equals("j")) {
-                assertEquals(j, pev.values.get(var), "Value of variable j should be " + j + ".");
-            } else if (var.name.equals("sum")) {
-                assertEquals(sum, pev.values.get(var), "Value of variable sum should be " + sum + ".");
-            } else {
-                fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
+            switch (var.name) {
+                case "i" -> assertEquals(i, pev.values.get(var), "Value of variable i should be " + i + ".");
+                case "j" -> assertEquals(j, pev.values.get(var), "Value of variable j should be " + j + ".");
+                case "sum" -> assertEquals(sum, pev.values.get(var), "Value of variable sum should be " + sum + ".");
+                default -> fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
             }
         }
         assertEquals(0, variables.size(), "Some variables have not been evaluated");
@@ -326,18 +319,13 @@ public class TestMiniJava{
         for (Var var: ptv.variables) {
             variables.remove(var.name);
 
-            if (var.name.equals("i")) {
-                assertEquals(i, pev.values.get(var), "Value of variable i should be " + i + ".");
-            } else if (var.name.equals("x")) {
-                assertEquals(x, pev.values.get(var), "Value of variable j should be " + x + ".");
-            } else if (var.name.equals("j")) {
-                assertEquals(j, pev.values.get(var), "Value of variable j should be " + j + ".");
-            } else if (var.name.equals("k")) {
-                assertEquals(k, pev.values.get(var), "Value of variable j should be " + k + ".");
-            } else if (var.name.equals("y")) {
-                assertEquals(y, pev.values.get(var), "Value of variable j should be " + y + ".");
-            } else {
-                fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
+            switch (var.name) {
+                case "i" -> assertEquals(i, pev.values.get(var), "Value of variable i should be " + i + ".");
+                case "x" -> assertEquals(x, pev.values.get(var), "Value of variable j should be " + x + ".");
+                case "j" -> assertEquals(j, pev.values.get(var), "Value of variable j should be " + j + ".");
+                case "k" -> assertEquals(k, pev.values.get(var), "Value of variable j should be " + k + ".");
+                case "y" -> assertEquals(y, pev.values.get(var), "Value of variable j should be " + y + ".");
+                default -> fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
             }
         }
         assertEquals(0, variables.size(), "Some variables have not been evaluated");
@@ -389,14 +377,11 @@ public class TestMiniJava{
         for (Var var : ptv.variables) {
             variables.remove(var.name);
 
-            if (var.name.equals("a")) {
-                assertEquals(a, pev.values.get(var), "Value of variable a should be " + a + ".");
-            } else if (var.name.equals("b")) {
-                assertEquals(b, pev.values.get(var), "Value of variable b should be " + b + ".");
-            } else if (var.name.equals("c")) {
-                assertEquals(c, pev.values.get(var), "Value of variable c should be " + c + ".");
-            } else {
-                fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
+            switch (var.name) {
+                case "a" -> assertEquals(a, pev.values.get(var), "Value of variable a should be " + a + ".");
+                case "b" -> assertEquals(b, pev.values.get(var), "Value of variable b should be " + b + ".");
+                case "c" -> assertEquals(c, pev.values.get(var), "Value of variable c should be " + c + ".");
+                default -> fail("A non-existing variable " + var.name + " occurred in evaluation of program.");
             }
         }
         assertEquals(0, variables.size(), "Some variables have not been evaluated");
